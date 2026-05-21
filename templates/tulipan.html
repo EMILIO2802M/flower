@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Te amo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+  </head>
+  <body class="tulipan-page">
+    <main class="tulipan-scene">
+      <div class="tulipan-glow"></div>
+      <section class="tulipan-card">
+        <p class="eyebrow"></p>
+        <h1>Te amo</h1>
+        <p class="intro">Espero te guste :))</p>
+
+        <div class="tulipan-stage">
+          <div class="heart-stage" aria-label="Corazón de puntos"></div>
+        </div>
+
+        <p class="tulipan-caption">Te amo con todo mi corazón.</p>
+        <a class="back-link" href="{% url 'home' %}">Volver</a>
+      </section>
+    </main>
+
+    <script src="{% static 'tulipan.js' %}?v=2"></script>
+  </body>
+</html>

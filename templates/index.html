@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Para ti, mi amor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+  </head>
+  <body>
+    <main class="scene">
+      <div class="ambient ambient-one"></div>
+      <div class="ambient ambient-two"></div>
+      <div class="floating-hearts" aria-hidden="true">
+        <span>♥</span><span>♥</span><span>♥</span><span>♥</span><span>♥</span><span>♥</span>
+      </div>
+
+      <section class="card">
+        <p class="eyebrow">Para el ser que amo, hecha con cariño</p>
+        <h1>Para mi niña, con todo mi corazón</h1>
+        <p class="intro">
+          Quise hacerte algo bonito, la distancia no impide que te ame.
+        </p>
+
+        <div class="message-box">
+          <p id="messageText">{{ first_message }}</p>
+        </div>
+
+        <div class="actions">
+          <button id="nextMessage" type="button">Ver otra razón</button>
+          <a class="secondary action-link" href="{% url 'tulipan' %}">Una pequeña sorpresa</a>
+        </div>
+
+        <p class="footer-note">Att. Emsss, tu programador de confianza.</p>
+      </section>
+    </main>
+
+    <div id="heartLayer" class="heart-layer" aria-hidden="true"></div>
+
+    <script>
+      window.romanticMessages = {{ romantic_messages_json|safe }};
+    </script>
+    <script src="{% static 'script.js' %}"></script>
+  </body>
+</html>

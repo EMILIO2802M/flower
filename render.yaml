@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: nvx
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn lovelysite.wsgi:application
+    envVars:
+      - key: DEBUG
+        value: "False"

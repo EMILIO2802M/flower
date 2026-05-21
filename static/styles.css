@@ -1,0 +1,792 @@
+:root {
+  --bg-1: #fff2f6;
+  --bg-2: #ffd9e6;
+  --bg-3: #ffeef3;
+  --ink: #3f2230;
+  --muted: #7d5565;
+  --accent: #e85d7b;
+  --accent-strong: #c83f5f;
+  --card: rgba(255, 255, 255, 0.66);
+  --border: rgba(255, 255, 255, 0.5);
+  --shadow: 0 28px 80px rgba(183, 72, 103, 0.18);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.9), transparent 28%),
+    radial-gradient(circle at 85% 15%, rgba(255, 255, 255, 0.55), transparent 20%),
+    linear-gradient(135deg, var(--bg-1), var(--bg-2) 52%, var(--bg-3));
+  overflow-x: hidden;
+}
+
+.scene {
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 32px 20px;
+}
+
+.ambient {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(20px);
+  opacity: 0.65;
+  animation: drift 14s ease-in-out infinite;
+}
+
+.ambient-one {
+  width: 240px;
+  height: 240px;
+  top: 8%;
+  left: 6%;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.ambient-two {
+  width: 320px;
+  height: 320px;
+  right: -60px;
+  bottom: -40px;
+  background: rgba(255, 192, 203, 0.45);
+  animation-delay: -6s;
+}
+
+.card {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 720px);
+  padding: 40px clamp(24px, 5vw, 56px);
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  background: var(--card);
+  backdrop-filter: blur(18px);
+  box-shadow: var(--shadow);
+  text-align: center;
+  animation: rise 900ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+}
+
+h1 {
+  margin: 0;
+  font-family: "Playfair Display", serif;
+  font-size: clamp(2.2rem, 5vw, 4.6rem);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+}
+
+.intro {
+  max-width: 42ch;
+  margin: 18px auto 0;
+  font-size: clamp(1rem, 2vw, 1.12rem);
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.message-box {
+  margin: 28px auto 0;
+  padding: 24px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(255, 255, 255, 0.76);
+  min-height: 108px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.message-box p {
+  margin: 0;
+  font-size: clamp(1.02rem, 2vw, 1.2rem);
+  line-height: 1.65;
+  color: var(--ink);
+  animation: messageIn 420ms ease;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+button {
+  appearance: none;
+  border: none;
+  border-radius: 999px;
+  padding: 14px 22px;
+  font: inherit;
+  font-weight: 700;
+  color: white;
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  box-shadow: 0 14px 24px rgba(200, 63, 95, 0.24);
+  cursor: pointer;
+  transform: translateY(0);
+  transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 30px rgba(200, 63, 95, 0.3);
+  filter: brightness(1.02);
+}
+
+button:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+button.secondary {
+  color: var(--accent-strong);
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+}
+
+.action-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.footer-note {
+  margin: 20px 0 0;
+  font-size: 0.95rem;
+  color: rgba(63, 34, 48, 0.72);
+}
+
+.floating-hearts,
+.heart-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.floating-hearts span,
+.heart-layer span {
+  position: absolute;
+  color: rgba(232, 93, 123, 0.45);
+  text-shadow: 0 0 18px rgba(255, 255, 255, 0.8);
+}
+
+.floating-hearts span {
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  animation: floatUp linear infinite;
+}
+
+.floating-hearts span:nth-child(1) { left: 8%; bottom: -8%; animation-duration: 14s; animation-delay: 0s; }
+.floating-hearts span:nth-child(2) { left: 20%; bottom: -18%; animation-duration: 16s; animation-delay: -3s; }
+.floating-hearts span:nth-child(3) { left: 40%; bottom: -12%; animation-duration: 15s; animation-delay: -6s; }
+.floating-hearts span:nth-child(4) { left: 58%; bottom: -14%; animation-duration: 17s; animation-delay: -2s; }
+.floating-hearts span:nth-child(5) { left: 74%; bottom: -10%; animation-duration: 13s; animation-delay: -5s; }
+.floating-hearts span:nth-child(6) { left: 88%; bottom: -16%; animation-duration: 18s; animation-delay: -8s; }
+
+.heart-layer span {
+  font-size: 1.15rem;
+  animation: burst 1100ms ease-out forwards;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes drift {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(18px, -16px, 0) scale(1.06);
+  }
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.55;
+  }
+  100% {
+    transform: translateY(-120vh) rotate(14deg);
+    opacity: 0;
+  }
+}
+
+@keyframes messageIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes burst {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.6);
+  }
+  20% {
+    opacity: 0.95;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--dx), var(--dy), 0) scale(1.6) rotate(var(--rot));
+  }
+}
+
+.tulipan-page {
+  background: #000; /* black background to match requested look */
+  color: #fff;
+}
+
+.tulipan-scene {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 32px 20px;
+}
+
+.tulipan-card {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 860px);
+  padding: 32px clamp(22px, 4vw, 48px) 34px;
+  border-radius: 12px;
+  background: transparent; /* let black show */
+  border: none;
+  box-shadow: none;
+  text-align: center;
+}
+
+.tulipan-glow {
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(255, 148, 182, 0.5), rgba(255, 148, 182, 0));
+  filter: blur(10px);
+  transform: translateY(4px);
+  animation: glowPulse 5s ease-in-out infinite;
+  z-index: 0;
+}
+
+.tulipan-stage {
+  position: relative;
+  width: min(100%, 760px);
+  margin: 6px auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 360px;
+}
+
+/* Heart dotted layout */
+.heart-stage {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  max-width: 420px;
+  margin: 0 auto;
+  touch-action: none;
+}
+
+.heart-stage .heart-silhouette {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  filter: blur(10px) saturate(140%);
+  mix-blend-mode: screen;
+  opacity: 0.9;
+}
+
+.heart-dot {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ff9a9a 0%, #ff1f1f 28%, #c90000 100%);
+  box-shadow: 0 2px 6px rgba(200, 0, 0, 0.28);
+  transform-origin: center center;
+  will-change: transform, opacity;
+  mix-blend-mode: screen;
+}
+
+.heart-dot:hover {
+  transform: scale(1.3) translateY(-6px);
+  box-shadow: 0 18px 30px rgba(255, 80, 80, 0.34);
+}
+
+/* vertical trail dots (brighter) */
+.trail-dot {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ff5b5b 0%, #ff0f0f 60%);
+  box-shadow: 0 0 8px rgba(255, 30, 30, 0.95), 0 0 18px rgba(255, 10, 10, 0.7);
+  opacity: 0.95;
+  mix-blend-mode: screen;
+}
+
+/* final container pulse */
+.heart-stage.heart-pulse {
+  animation: heartPulse 720ms cubic-bezier(0.2,0.9,0.2,1) forwards;
+}
+
+@keyframes heartPulse {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+/* subtle beat applied when formed */
+.heart-stage.heart-formed .heart-dot {
+  transition: transform 360ms ease 0ms;
+}
+
+.heart-stage.heart-formed .heart-dot:nth-child(odd) {
+  transform-origin: center center;
+}
+
+/* Continuous heartbeat at 1 beat per second */
+.heart-stage.heartbeat {
+  animation: heartPulse 1s cubic-bezier(0.2,0.9,0.2,1) infinite;
+}
+
+.tulipan-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.tulip,
+.tulipan-shadow,
+.tulipan-stem,
+.tulipan-leaf,
+.tulipan-petal,
+.tulipan-glow-core,
+.petal-vein {
+  opacity: 0;
+}
+
+.tulip {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+}
+
+.tulip.is-visible {
+  opacity: 1;
+}
+
+.tulipan-shadow {
+  fill: url(#glowGradient);
+  filter: url(#softGlow);
+}
+
+.tulipan-stem {
+  fill: none;
+  stroke: url(#stemGradient);
+  stroke-width: 22;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 10px 12px rgba(55, 136, 70, 0.28));
+}
+
+.tulipan-leaf {
+  fill: url(#leafGradient);
+  stroke: rgba(34, 107, 53, 0.35);
+  stroke-width: 2.2;
+  stroke-linejoin: round;
+  paint-order: stroke fill;
+  filter: drop-shadow(0 10px 10px rgba(55, 136, 70, 0.18));
+}
+
+.tulipan-glow-core {
+  fill: url(#glowGradient);
+}
+
+.tulipan-petal {
+  fill: url(#petalGradient);
+  stroke: rgba(120, 26, 65, 0.82);
+  stroke-width: 2.6;
+  stroke-linejoin: round;
+  paint-order: stroke fill;
+  filter: drop-shadow(0 28px 36px rgba(180, 38, 95, 0.28));
+  transform-origin: center center;
+}
+
+/* Layered petal variants for depth */
+.tulipan-petal.outer {
+  filter: drop-shadow(0 36px 44px rgba(180, 38, 95, 0.34));
+}
+.tulipan-petal.mid {
+  filter: drop-shadow(0 28px 36px rgba(160, 34, 85, 0.28));
+}
+.tulipan-petal.inner {
+  filter: drop-shadow(0 18px 24px rgba(140, 30, 76, 0.22));
+  stroke: rgba(140, 20, 60, 0.9);
+  stroke-width: 2.2;
+}
+.inner-front { filter: url(#softGlow); }
+
+.petal-vein {
+  fill: none;
+  stroke: url(#petalVeinGradient);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  mix-blend-mode: screen;
+}
+
+.rose-core .rose-spiral {
+  fill: none;
+  stroke: rgba(255,250,250,0.92);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+  transform-origin: center center;
+}
+
+/* Staggered opening for layered petals */
+.tulip.is-visible .rose-petals .tulipan-petal.outer {
+  animation: openPetalAll 760ms cubic-bezier(0.16,1,0.3,1) 120ms forwards;
+}
+.tulip.is-visible .rose-petals .tulipan-petal.mid {
+  animation: openPetalAll 780ms cubic-bezier(0.16,1,0.3,1) 220ms forwards;
+}
+.tulip.is-visible .rose-petals .tulipan-petal.inner {
+  animation: openPetalAll 820ms cubic-bezier(0.16,1,0.3,1) 360ms forwards;
+}
+
+.tulip.is-visible .rose-petals .inner-front {
+  animation: openPetalAll 860ms cubic-bezier(0.16,1,0.3,1) 420ms forwards;
+}
+
+.rose-core .rose-center {
+  fill: rgba(255,255,255,0.98);
+  opacity: 0;
+}
+
+.tulip.is-visible .rose-core .rose-spiral {
+  animation: coreDraw 900ms ease-out 420ms forwards, coreSpin 4200ms linear 1320ms infinite;
+}
+
+.tulip.is-visible .rose-core .rose-center {
+  animation: coreFade 600ms ease-out 560ms forwards;
+}
+
+@keyframes coreDraw {
+  from { opacity: 0; stroke-dasharray: 60; stroke-dashoffset: 60; }
+  to { opacity: 1; stroke-dasharray: 60; stroke-dashoffset: 0; }
+}
+
+@keyframes coreSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes coreFade {
+  from { opacity: 0; transform: scale(0.6); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Generic petal entrance for layered rose petals */
+.tulip .tulipan-petal {
+  opacity: 0;
+  transform-origin: center center;
+  transform: translateY(22px) scale(0.12);
+}
+
+.tulip.is-visible .rose-petals .tulipan-petal:nth-child(1) {
+  animation: openPetalAll 720ms cubic-bezier(0.16,1,0.3,1) 160ms forwards;
+}
+.tulip.is-visible .rose-petals .tulipan-petal:nth-child(2) {
+  animation: openPetalAll 760ms cubic-bezier(0.16,1,0.3,1) 220ms forwards;
+}
+.tulip.is-visible .rose-petals .tulipan-petal:nth-child(3) {
+  animation: openPetalAll 820ms cubic-bezier(0.16,1,0.3,1) 280ms forwards;
+}
+.tulip.is-visible .rose-petals .tulipan-petal:nth-child(4) {
+  animation: openPetalAll 760ms cubic-bezier(0.16,1,0.3,1) 320ms forwards;
+}
+.tulip.is-visible .rose-petals .tulipan-petal:nth-child(5) {
+  animation: openPetalAll 700ms cubic-bezier(0.16,1,0.3,1) 360ms forwards;
+}
+.tulip.is-visible .rose-petals .petal-front {
+  animation: openPetalAll 840ms cubic-bezier(0.16,1,0.3,1) 420ms forwards;
+}
+
+@keyframes openPetalAll {
+  from { opacity: 0; transform: translateY(22px) scale(0.12); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.rose-petals .tulipan-petal {
+  transition: transform 420ms cubic-bezier(0.2,0.9,0.2,1), filter 420ms ease, opacity 240ms ease;
+}
+
+.tulip:hover { transform: translateY(-6px) scale(1.01); }
+
+.tulipan-svg { background: transparent; }
+
+/* ensure front petal sits above others */
+.petal-front { filter: url(#softGlow); }
+
+.tulip.is-visible .tulipan-shadow {
+  animation: bloomShadow 700ms ease-out forwards;
+}
+
+.tulip.is-visible .tulipan-stem {
+  animation: growStem 980ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.tulip.is-visible .leaf-left-group,
+.tulip.is-visible .leaf-right-group {
+  animation: unfurlLeaf 760ms cubic-bezier(0.2, 0.85, 0.3, 1) forwards;
+}
+
+.tulip.is-visible .head-group {
+  animation: bloomBloom 760ms ease-out forwards;
+}
+
+.tulip.is-visible .tulipan-glow-core {
+  animation: bloomBloom 720ms ease-out 60ms forwards;
+}
+
+.tulip.is-visible .petal-left {
+  animation: openPetalLeft 900ms cubic-bezier(0.17, 1.04, 0.33, 1) 90ms forwards;
+}
+
+.tulip.is-visible .petal-center {
+  animation: openPetalCenter 920ms cubic-bezier(0.16, 1, 0.3, 1) 150ms forwards;
+}
+
+.tulip.is-visible .petal-right {
+  animation: openPetalRight 900ms cubic-bezier(0.17, 1.04, 0.33, 1) 90ms forwards;
+}
+
+.tulip.is-visible .petal-front {
+  animation: openPetalFront 940ms cubic-bezier(0.16, 1, 0.3, 1) 240ms forwards;
+}
+
+.tulip.is-visible .petal-vein {
+  animation: veinAppear 840ms ease-out 280ms forwards;
+}
+
+.tulipan-caption {
+  margin: 4px 0 0;
+  font-family: "Playfair Display", serif;
+  font-size: clamp(1.6rem, 4vw, 2.3rem);
+  color: var(--accent-strong);
+}
+
+.back-link {
+  display: inline-flex;
+  margin-top: 12px;
+  color: var(--accent-strong);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+@keyframes growStem {
+  from {
+    opacity: 0;
+    stroke-dasharray: 360;
+    stroke-dashoffset: 360;
+  }
+  to {
+    opacity: 1;
+    stroke-dasharray: 360;
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes unfurlLeaf {
+  from {
+    opacity: 0;
+    transform: scale(0.15) rotate(0deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes bloomShadow {
+  from {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bloomBloom {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes openPetalLeft {
+  from {
+    opacity: 0;
+    transform: scale(0.1) translateY(20px) rotate(-14deg);
+  }
+  70% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0) rotate(-7deg);
+  }
+}
+
+@keyframes openPetalRight {
+  from {
+    opacity: 0;
+    transform: scale(0.1) translateY(20px) rotate(14deg);
+  }
+  70% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0) rotate(7deg);
+  }
+}
+
+@keyframes openPetalCenter {
+  from {
+    opacity: 0;
+    transform: scale(0.08) translateY(22px);
+  }
+  65% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes openPetalFront {
+  from {
+    opacity: 0;
+    transform: scale(0.08) translateY(24px);
+  }
+  65% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes veinAppear {
+  from {
+    opacity: 0;
+    stroke-dasharray: 60;
+    stroke-dashoffset: 60;
+  }
+  to {
+    opacity: 0.9;
+    stroke-dasharray: 60;
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes glowPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.72;
+  }
+  50% {
+    transform: scale(1.07);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .tulipan-card {
+    padding: 26px 18px 28px;
+  }
+
+  .tulipan-stage {
+    width: min(100%, 320px);
+  }
+}
+
+@media (max-width: 640px) {
+  .tulipan-card {
+    padding: 26px 18px 28px;
+  }
+
+  .tulipan-stage {
+    width: min(100%, 280px);
+  }
+}
+
+@media (max-width: 640px) {
+  .card {
+    padding: 30px 20px;
+    border-radius: 24px;
+  }
+
+  .message-box {
+    padding: 18px;
+    min-height: 118px;
+  }
+
+  button {
+    width: 100%;
+  }
+}
